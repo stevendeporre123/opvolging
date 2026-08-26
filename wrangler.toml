@@ -1,0 +1,30 @@
+name = "afspraken-commissies"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "afspraken_commissies_db"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "afspraken-commissies-bestanden"
+
+[vars]
+APP_TITEL = "Afspraken commissies"
+# Basis-URL van de app, gebruikt in mails (pas aan na deploy)
+APP_BASE_URL = "https://afspraken-commissies.workers.dev"
+# Afzender voor uitgaande mails
+MAIL_AFZENDER = "afspraken-commissies@gent.be"
+
+# Geheimen (NIET hier zetten, via `wrangler secret put` instellen):
+#   SESSION_SECRET      - willekeurige lange string voor het ondertekenen van sessiecookies
+#   RESEND_API_KEY       - API key van resend.com (of vervang lib/email.ts door je eigen provider)
+#   SHAREPOINT_IMPORT_KEY - geheime sleutel die Power Automate meestuurt om de kalender-import aan te roepen

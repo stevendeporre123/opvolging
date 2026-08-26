@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Werknota's - Afspraken commissies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.11/css/jquery.dataTables.min.css" />
+</head>
+<body>
+  <div class="app-shell" id="app-shell">
+    <div class="hoofd">
+      <h1>Werknota's</h1>
+      <p class="pagina-omschrijving">Laad de werknota (.docx) van een commissie op. Afspraken worden automatisch herkend en verschijnen hieronder ter controle - pas na goedkeuring komen ze in de afsprakentabel terecht.</p>
+
+      <div id="melding" class="melding fout verborgen"></div>
+
+      <div class="paneel">
+        <h2>Nieuwe werknota opladen</h2>
+        <form id="form-upload">
+          <div class="veld-rij">
+            <div class="veld">
+              <label for="up-kalender">Commissiezitting (optioneel)</label>
+              <select id="up-kalender"></select>
+            </div>
+            <div class="veld">
+              <label for="up-bestand">Werknota (.docx)</label>
+              <input type="file" id="up-bestand" accept=".docx" required />
+            </div>
+          </div>
+          <button type="submit" class="primair">Opladen en analyseren</button>
+        </form>
+      </div>
+
+      <div class="paneel">
+        <h2>Opgeladen werknota's</h2>
+        <table id="tabel-werknotas" class="display" style="width:100%">
+          <thead>
+            <tr><th>Datum</th><th>Bestand</th><th>Zitting</th><th>Status</th><th>Te beoordelen</th><th>Acties</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="paneel verborgen" id="paneel-staging">
+        <h2 id="staging-titel">Te beoordelen afspraken</h2>
+        <div id="staging-lijst"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-achtergrond verborgen" id="modal-goedkeuren">
+    <div class="modal">
+      <h2>Afspraak goedkeuren</h2>
+      <div id="goedkeuren-melding" class="melding fout verborgen"></div>
+      <form id="form-goedkeuren">
+        <input type="hidden" id="gk-staging-id" />
+        <div class="veld-rij">
+          <div class="veld">
+            <label for="gk-orgaan">Orgaan / commissie</label>
+            <select id="gk-orgaan"></select>
+          </div>
+          <div class="veld">
+            <label for="gk-schepen">Schepen</label>
+            <select id="gk-schepen"></select>
+          </div>
+        </div>
+        <div class="veld">
+          <label for="gk-agendapunt">Agendapunt</label>
+          <input type="text" id="gk-agendapunt" />
+        </div>
+        <div class="veld">
+          <label for="gk-omschrijving">Afspraak / gevraagde informatie *</label>
+          <textarea id="gk-omschrijving" required></textarea>
+        </div>
+        <div class="veld-rij">
+          <div class="veld">
+            <label for="gk-gevraagd-door">Gevraagd door</label>
+            <input type="text" id="gk-gevraagd-door" />
+          </div>
+          <div class="veld">
+            <label for="gk-datum">Datum commissie</label>
+            <input type="date" id="gk-datum" />
+          </div>
+        </div>
+        <div class="modal-acties">
+          <button type="button" id="btn-gk-annuleer">Annuleren</button>
+          <button type="submit" class="primair">Toevoegen aan afspraken</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.11/js/jquery.dataTables.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/werknota.js"></script>
+</body>
+</html>

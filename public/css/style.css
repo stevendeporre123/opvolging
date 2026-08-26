@@ -1,0 +1,188 @@
+:root {
+  --kleur-bg: #f5f7f9;
+  --kleur-paneel: #ffffff;
+  --kleur-rand: #e1e6ea;
+  --kleur-tekst: #1f2937;
+  --kleur-tekst-zwak: #64748b;
+  --kleur-primair: #0f5c73;
+  --kleur-primair-hover: #0c4a5d;
+  --kleur-accent: #1d8a99;
+  --kleur-succes: #1a7d4a;
+  --kleur-succes-bg: #e6f4ec;
+  --kleur-warning: #b3701a;
+  --kleur-warning-bg: #fdf1e2;
+  --kleur-gevaar: #b3261e;
+  --kleur-gevaar-bg: #fbe9e8;
+  --radius: 10px;
+  --schaduw: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  background: var(--kleur-bg);
+  color: var(--kleur-tekst);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+a { color: var(--kleur-primair); }
+
+.app-shell { display: flex; min-height: 100vh; }
+
+.zijbalk {
+  width: 230px;
+  background: var(--kleur-paneel);
+  border-right: 1px solid var(--kleur-rand);
+  padding: 20px 14px;
+  flex-shrink: 0;
+}
+
+.zijbalk .logo {
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--kleur-primair);
+  margin-bottom: 4px;
+}
+.zijbalk .subtitel { font-size: 12px; color: var(--kleur-tekst-zwak); margin-bottom: 24px; }
+
+.zijbalk nav a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--kleur-tekst);
+  text-decoration: none;
+  font-size: 13.5px;
+  margin-bottom: 2px;
+}
+.zijbalk nav a:hover { background: var(--kleur-bg); }
+.zijbalk nav a.actief { background: var(--kleur-primair); color: #fff; }
+
+.gebruiker-info {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--kleur-rand);
+  font-size: 12.5px;
+  color: var(--kleur-tekst-zwak);
+}
+.gebruiker-info .naam { color: var(--kleur-tekst); font-weight: 500; }
+.gebruiker-info button {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.hoofd { flex: 1; padding: 26px 32px; max-width: 1400px; }
+
+.hoofd h1 { font-size: 21px; font-weight: 600; margin: 0 0 4px; }
+.hoofd .pagina-omschrijving { color: var(--kleur-tekst-zwak); margin: 0 0 20px; font-size: 13.5px; }
+
+.paneel {
+  background: var(--kleur-paneel);
+  border: 1px solid var(--kleur-rand);
+  border-radius: var(--radius);
+  box-shadow: var(--schaduw);
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+
+.paneel h2 { font-size: 15px; font-weight: 600; margin: 0 0 14px; }
+
+button, .knop {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--kleur-rand);
+  background: #fff;
+  color: var(--kleur-tekst);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+button:hover { background: var(--kleur-bg); }
+button.primair { background: var(--kleur-primair); border-color: var(--kleur-primair); color: #fff; }
+button.primair:hover { background: var(--kleur-primair-hover); }
+button.gevaar { color: var(--kleur-gevaar); border-color: #f3c9c6; }
+button.gevaar:hover { background: var(--kleur-gevaar-bg); }
+button.klein { padding: 5px 10px; font-size: 12px; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+input[type=text], input[type=email], input[type=password], input[type=date], select, textarea {
+  font-family: inherit;
+  font-size: 13.5px;
+  padding: 8px 10px;
+  border: 1px solid var(--kleur-rand);
+  border-radius: 8px;
+  width: 100%;
+  background: #fff;
+  color: var(--kleur-tekst);
+}
+textarea { resize: vertical; min-height: 70px; }
+label { display: block; font-size: 12.5px; font-weight: 500; color: var(--kleur-tekst-zwak); margin-bottom: 4px; }
+.veld { margin-bottom: 14px; }
+.veld-rij { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.badge.open { background: var(--kleur-warning-bg); color: var(--kleur-warning); }
+.badge.beantwoord { background: var(--kleur-succes-bg); color: var(--kleur-succes); }
+.badge.neutraal { background: #eef2f5; color: var(--kleur-tekst-zwak); }
+
+.melding { padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 14px; }
+.melding.fout { background: var(--kleur-gevaar-bg); color: var(--kleur-gevaar); }
+.melding.succes { background: var(--kleur-succes-bg); color: var(--kleur-succes); }
+
+.login-scherm {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #0f5c73 0%, #0b3f4f 100%);
+}
+.login-kaart {
+  background: #fff;
+  border-radius: 14px;
+  padding: 36px 34px;
+  width: 340px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+.login-kaart .logo { font-size: 19px; font-weight: 600; color: var(--kleur-primair); margin-bottom: 2px; }
+.login-kaart .subtitel { font-size: 12.5px; color: var(--kleur-tekst-zwak); margin-bottom: 22px; }
+.login-kaart button.primair { width: 100%; margin-top: 6px; padding: 10px; }
+
+.modal-achtergrond {
+  position: fixed; inset: 0; background: rgba(15,23,42,0.45);
+  display: flex; align-items: center; justify-content: center; z-index: 50;
+}
+.modal {
+  background: #fff; border-radius: var(--radius); padding: 22px 24px;
+  width: 520px; max-width: 92vw; max-height: 86vh; overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+.modal h2 { margin-top: 0; }
+.modal-acties { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+.verborgen { display: none !important; }
+
+.tabs { display: flex; gap: 4px; margin-bottom: 18px; border-bottom: 1px solid var(--kleur-rand); }
+.tabs button { border: none; background: none; border-radius: 0; padding: 9px 14px; border-bottom: 2px solid transparent; }
+.tabs button.actief { border-bottom-color: var(--kleur-primair); color: var(--kleur-primair); font-weight: 600; }
+
+table.dataTable { font-size: 13px; }
+table.dataTable thead th { font-weight: 600; color: var(--kleur-tekst-zwak); }
+.dt-buttons { margin-bottom: 10px; }
+
+.groep-titel { font-size: 15px; font-weight: 600; margin: 26px 0 10px; display: flex; align-items: center; gap: 10px; }
+.groep-titel .badge { font-weight: 600; }
+
+.kleine-tekst { font-size: 12px; color: var(--kleur-tekst-zwak); }
+.acties-cel { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.staging-kaart { border: 1px solid var(--kleur-rand); border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; }
+.staging-kaart .staging-koptekst { display: flex; justify-content: space-between; align-items: start; gap: 10px; }

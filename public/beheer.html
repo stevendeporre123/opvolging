@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beheer - Afspraken commissies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.11/css/jquery.dataTables.min.css" />
+</head>
+<body>
+  <div class="app-shell" id="app-shell">
+    <div class="hoofd">
+      <h1>Beheer</h1>
+      <p class="pagina-omschrijving">Beheer de helpertabellen: schepenen, organen (commissies), kalender en gebruikers.</p>
+
+      <div id="melding" class="melding fout verborgen"></div>
+
+      <div class="tabs">
+        <button class="actief" data-tab="schepenen">Schepenen</button>
+        <button data-tab="organen">Organen</button>
+        <button data-tab="kalender">Kalender commissies</button>
+        <button data-tab="users">Gebruikers</button>
+      </div>
+
+      <!-- Schepenen -->
+      <div class="paneel" data-tabpaneel="schepenen">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h2 style="margin:0;">Schepenen</h2>
+          <button class="primair klein" id="btn-nieuw-schepen">+ Schepen</button>
+        </div>
+        <table id="tabel-schepenen" class="display" style="width:100%">
+          <thead><tr><th>Naam</th><th>E-mailadressen kabinet</th><th>Actief</th><th>Acties</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- Organen -->
+      <div class="paneel verborgen" data-tabpaneel="organen">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h2 style="margin:0;">Organen / commissies</h2>
+          <button class="primair klein" id="btn-nieuw-orgaan">+ Orgaan</button>
+        </div>
+        <table id="tabel-organen" class="display" style="width:100%">
+          <thead><tr><th>Naam</th><th>E-mailadressen bestemmelingen</th><th>Actief</th><th>Acties</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- Kalender -->
+      <div class="paneel verborgen" data-tabpaneel="kalender">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h2 style="margin:0;">Kalender commissies</h2>
+          <button class="primair klein" id="btn-nieuwe-zitting">+ Zitting</button>
+        </div>
+        <p class="kleine-tekst">Wordt normaal automatisch aangevuld vanuit de SharePoint-lijst via het import-endpoint (zie README). Manuele toevoeging/aanpassing blijft mogelijk.</p>
+        <table id="tabel-kalender" class="display" style="width:100%">
+          <thead><tr><th>Datum</th><th>Titel</th><th>Orgaan</th><th>Bron</th><th>Acties</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- Gebruikers -->
+      <div class="paneel verborgen" data-tabpaneel="users">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h2 style="margin:0;">Gebruikers</h2>
+          <button class="primair klein" id="btn-nieuwe-user">+ Gebruiker</button>
+        </div>
+        <table id="tabel-users" class="display" style="width:100%">
+          <thead><tr><th>Naam</th><th>E-mail</th><th>Rol</th><th>Schepen</th><th>Actief</th><th>Acties</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generieke modal (naam + emails) voor schepen/orgaan -->
+  <div class="modal-achtergrond verborgen" id="modal-generiek">
+    <div class="modal">
+      <h2 id="generiek-titel">Item</h2>
+      <div id="generiek-melding" class="melding fout verborgen"></div>
+      <form id="form-generiek">
+        <input type="hidden" id="gen-id" />
+        <input type="hidden" id="gen-type" />
+        <div class="veld">
+          <label for="gen-naam">Naam *</label>
+          <input type="text" id="gen-naam" required />
+        </div>
+        <div class="veld">
+          <label for="gen-emails">E-mailadressen bestemmelingen (kommagescheiden)</label>
+          <textarea id="gen-emails" placeholder="kabinet.schepen@gent.be, medewerker@gent.be"></textarea>
+        </div>
+        <div class="veld">
+          <label><input type="checkbox" id="gen-actief" style="width:auto" checked /> Actief</label>
+        </div>
+        <div class="modal-acties">
+          <button type="button" id="btn-gen-annuleer">Annuleren</button>
+          <button type="submit" class="primair">Opslaan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal kalenderzitting -->
+  <div class="modal-achtergrond verborgen" id="modal-zitting">
+    <div class="modal">
+      <h2 id="zitting-titel">Zitting</h2>
+      <div id="zitting-melding" class="melding fout verborgen"></div>
+      <form id="form-zitting">
+        <input type="hidden" id="zi-id" />
+        <div class="veld">
+          <label for="zi-titel">Titel *</label>
+          <input type="text" id="zi-titel" required />
+        </div>
+        <div class="veld-rij">
+          <div class="veld">
+            <label for="zi-datum">Datum *</label>
+            <input type="date" id="zi-datum" required />
+          </div>
+          <div class="veld">
+            <label for="zi-orgaan">Orgaan</label>
+            <select id="zi-orgaan"></select>
+          </div>
+        </div>
+        <div class="veld">
+          <label for="zi-opmerking">Opmerking</label>
+          <textarea id="zi-opmerking"></textarea>
+        </div>
+        <div class="modal-acties">
+          <button type="button" id="btn-zi-annuleer">Annuleren</button>
+          <button type="submit" class="primair">Opslaan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal gebruiker -->
+  <div class="modal-achtergrond verborgen" id="modal-user">
+    <div class="modal">
+      <h2 id="user-titel">Gebruiker</h2>
+      <div id="user-melding" class="melding fout verborgen"></div>
+      <form id="form-user">
+        <input type="hidden" id="us-id" />
+        <div class="veld-rij">
+          <div class="veld">
+            <label for="us-naam">Naam *</label>
+            <input type="text" id="us-naam" required />
+          </div>
+          <div class="veld">
+            <label for="us-email">E-mail *</label>
+            <input type="email" id="us-email" required />
+          </div>
+        </div>
+        <div class="veld-rij">
+          <div class="veld">
+            <label for="us-rol">Rol *</label>
+            <select id="us-rol">
+              <option value="bestuursondersteuning">Bestuursondersteuning</option>
+              <option value="schepen">Schepen / kabinet</option>
+              <option value="raadslid">Gemeenteraadslid</option>
+            </select>
+          </div>
+          <div class="veld" id="us-schepen-veld">
+            <label for="us-schepen">Schepen</label>
+            <select id="us-schepen"></select>
+          </div>
+        </div>
+        <div class="veld">
+          <label for="us-wachtwoord">Wachtwoord <span class="kleine-tekst" id="us-wachtwoord-hint"></span></label>
+          <input type="password" id="us-wachtwoord" autocomplete="new-password" />
+        </div>
+        <div class="veld" id="us-actief-veld">
+          <label><input type="checkbox" id="us-actief" style="width:auto" checked /> Actief</label>
+        </div>
+        <div class="modal-acties">
+          <button type="button" id="btn-us-annuleer">Annuleren</button>
+          <button type="submit" class="primair">Opslaan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.11/js/jquery.dataTables.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/beheer.js"></script>
+</body>
+</html>

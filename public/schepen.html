@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mijn afspraken - Afspraken commissies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.11/css/jquery.dataTables.min.css" />
+</head>
+<body>
+  <div class="app-shell" id="app-shell">
+    <div class="hoofd">
+      <h1>Mijn afspraken</h1>
+      <p class="pagina-omschrijving">Overzicht (alleen-lezen) van de afspraken uit de commissiewerknota's die nog niet beantwoord zijn. Een antwoord bezorgt u via mail aan de dienst bestuursondersteuning.</p>
+
+      <div class="paneel">
+        <table id="tabel-open" class="display" style="width:100%">
+          <thead><tr><th>Datum</th><th>Orgaan</th><th>Agendapunt</th><th>Afspraak</th><th>Gevraagd door</th><th>Deadline</th><th>Herinneringen</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <h2 style="font-size:15px; margin-top:28px;">Reeds beantwoord</h2>
+      <div class="paneel">
+        <table id="tabel-beantwoord" class="display" style="width:100%">
+          <thead><tr><th>Datum</th><th>Orgaan</th><th>Agendapunt</th><th>Afspraak</th><th>Beantwoord op</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.11/js/jquery.dataTables.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/schepen.js"></script>
+</body>
+</html>

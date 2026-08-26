@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alle afspraken - Afspraken commissies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.11/css/jquery.dataTables.min.css" />
+</head>
+<body>
+  <div class="app-shell" id="app-shell">
+    <div class="hoofd">
+      <h1>Alle afspraken</h1>
+      <p class="pagina-omschrijving">Overzicht (alleen-lezen) van alle afspraken uit de commissiewerknota's, gegroepeerd op status.</p>
+
+      <div class="groep-titel">Niet beantwoord <span class="badge open" id="teller-open">0</span></div>
+      <div class="paneel">
+        <table id="tabel-open" class="display" style="width:100%">
+          <thead><tr><th>Datum</th><th>Orgaan</th><th>Agendapunt</th><th>Afspraak</th><th>Schepen</th><th>Gevraagd door</th><th>Deadline</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="groep-titel">Beantwoord <span class="badge beantwoord" id="teller-beantwoord">0</span></div>
+      <div class="paneel">
+        <table id="tabel-beantwoord" class="display" style="width:100%">
+          <thead><tr><th>Datum</th><th>Orgaan</th><th>Agendapunt</th><th>Afspraak</th><th>Schepen</th><th>Beantwoord op</th><th>Antwoord</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.11/js/jquery.dataTables.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/raadslid.js"></script>
+</body>
+</html>

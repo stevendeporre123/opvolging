@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Afspraken commissies - Aanmelden</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="login-scherm">
+    <div class="login-kaart">
+      <div class="logo">Afspraken commissies</div>
+      <div class="subtitel">Meld je aan om verder te gaan</div>
+      <div id="melding" class="melding fout verborgen"></div>
+      <form id="login-form">
+        <div class="veld">
+          <label for="email">E-mailadres</label>
+          <input type="email" id="email" required autocomplete="username" />
+        </div>
+        <div class="veld">
+          <label for="wachtwoord">Wachtwoord</label>
+          <input type="password" id="wachtwoord" required autocomplete="current-password" />
+        </div>
+        <button type="submit" class="primair">Aanmelden</button>
+      </form>
+    </div>
+  </div>
+  <script src="/js/api.js"></script>
+  <script>
+    (async () => {
+      const user = await huidigeGebruiker();
+      if (user) window.location.href = rolStartpagina(user.rol);
+    })();
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      verbergMelding('melding');
+      try {
+        const user = await api('/auth/login', {
+          method: 'POST',
+          body: {
+            email: document.getElementById('email').value.trim(),
+            wachtwoord: document.getElementById('wachtwoord').value,
+          },
+        });
+        window.location.href = rolStartpagina(user.rol);
+      } catch (err) {
+        toonMelding('melding', err.message);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Afspraken - Afspraken commissies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.11/css/jquery.dataTables.min.css" />
+</head>
+<body>
+  <div class="app-shell" id="app-shell">
+    <div class="hoofd">
+      <div style="display:flex; justify-content:space-between; align-items:start;">
+        <div>
+          <h1>Afspraken</h1>
+          <p class="pagina-omschrijving">Alle afspraken uit de commissiewerknota's, beheerd door de dienst bestuursondersteuning.</p>
+        </div>
+        <button class="primair" id="btn-nieuw">+ Nieuwe afspraak</button>
+      </div>
+
+      <div id="melding" class="melding fout verborgen"></div>
+
+      <div class="paneel">
+        <table id="tabel-afspraken" class="display" style="width:100%">
+          <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Orgaan</th>
+              <th>Agendapunt</th>
+              <th>Schepen</th>
+              <th>Omschrijving</th>
+              <th>Gevraagd door</th>
+              <th>Status</th>
+              <th>Herinn.</th>
+              <th>Acties</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: afspraak aanmaken/bewerken -->
+  <div class="modal-achtergrond verborgen" id="modal-afspraak">
+    <div class="modal">
+      <h2 id="modal-titel">Nieuwe afspraak</h2>
+      <div id="modal-melding" class="melding fout verborgen"></div>
+      <form id="form-afspraak">
+        <input type="hidden" id="af-id" />
+        <div class="veld-rij">
+          <div class="veld">
+            <label for="af-orgaan">Orgaan / commissie</label>
+            <select id="af-orgaan"></select>
+          </div>
+          <div class="veld">
+            <label for="af-schepen">Schepen</label>
+            <select id="af-schepen"></select>
+          </div>
+        </div>
+        <div class="veld-rij">
+          <div class="veld">
+            <label for="af-kalender">Commissiezitting</label>
+            <select id="af-kalender"></select>
+          </div>
+          <div class="veld">
+            <label for="af-datum">Datum commissie</label>
+            <input type="date" id="af-datum" />
+          </div>
+        </div>
+        <div class="veld">
+          <label for="af-agendapunt">Agendapunt</label>
+          <input type="text" id="af-agendapunt" placeholder="Bv. Punt 4 - Budgetwijziging" />
+        </div>
+        <div class="veld">
+          <label for="af-omschrijving">Afspraak / gevraagde informatie *</label>
+          <textarea id="af-omschrijving" required></textarea>
+        </div>
+        <div class="veld-rij">
+          <div class="veld">
+            <label for="af-gevraagd-door">Gevraagd door (raadslid)</label>
+            <input type="text" id="af-gevraagd-door" />
+          </div>
+          <div class="veld">
+            <label for="af-deadline">Deadline</label>
+            <input type="date" id="af-deadline" />
+          </div>
+        </div>
+        <div class="veld">
+          <label for="af-notitie">Interne notitie</label>
+          <textarea id="af-notitie"></textarea>
+        </div>
+        <div class="modal-acties">
+          <button type="button" id="btn-annuleer">Annuleren</button>
+          <button type="submit" class="primair">Opslaan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.11/js/jquery.dataTables.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
